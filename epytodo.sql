@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS user(
     password PASSWORD(CHAR(50)),
     name VARCHAR(50) NOT NULL,
     firstname VARCHAR(50) NOT NULL,
-    created_at TIMESTAMP,
+    created_at TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS todo(
@@ -16,6 +16,6 @@ CREATE TABLE IF NOT EXISTS todo(
     created_at TIMESTAMP,
     due_time VARCHAR(50) NOT NULL,
     firstname VARCHAR(50) NOT NULL,
-    status DEFAULT(not started)
+    status VARCHAR(50) DEFAULT(not started),
     user_id VARCHAR(50) NOT NULL
 );

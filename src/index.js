@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const port = 8789
+const port = 8788
 const datetime = new Date()
 
 app.get('/', (req, res) => {
@@ -34,7 +34,9 @@ app.get('/date', (req, res) => {
 })
 
 require("../routes/user.query.js")(app);
+require('../routes/auth.js');
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
+

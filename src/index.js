@@ -33,6 +33,8 @@ app.get('/date', (req, res) => {
   res.send(`${datetime.toISOString().slice(0,10)}`)
 })
 
+require("../routes/user.query.js")(app);
+
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })

@@ -15,7 +15,7 @@ user.post('/register', function(req, result) {
             if (err.errno == 1062) {
                 console.log("Already Exists");
                 result.status(400).send({
-                    msg: "account already exists"
+                    msg: "bad request"
                 });
             }
         } else {
@@ -34,7 +34,7 @@ user.post('/login', (req, res) => {
               if (err || result[0] == undefined) {
             console.log("Invalid Credentials for Login");
             res.status(401).send({
-                msg: "Invalid Credentials"
+                msg: "401 Unauthorized"
             });
         } else if (bcrypt.compareSync(req.body.password, result[0].password)) {
             const token = auth.generateToken(req.body.email, result[0].id);
@@ -45,7 +45,7 @@ user.post('/login', (req, res) => {
         } else {
             console.log("Invalid Credentials for Login");
             res.status(401).send({
-                msg: "Invalid Credentials"
+                msg: "401 Unauthorized"
             });
         }
              });

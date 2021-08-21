@@ -20,14 +20,14 @@ exports.authenticateToken = function(req, res, next) {
     jwt.verify(token, process.env.SECRET, (err, user) => {
         if (err) {
             return res.status(401).send({
-                msg: "Token is not valid"
+                msg: "Unauthorized"
             });
         }
         req.body.user = user;
         sql.query("SELECT * FROM user WHERE user.email = ?", user.email, function(err, result) {
             if (err || result[0] == undefined) {
                 return res.status(401).send({
-                    msg: "Token is not valid"
+                    msg: "Unauthorized"
                 });
             } else {
                 req.body.user.id = result[0].id;

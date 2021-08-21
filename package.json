@@ -1,6 +1,6 @@
 {
   "name": "b-web-200-par-2-2-epytodo-sidi1.ba",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
@@ -9,9 +9,33 @@
     "body-parser": "^1.19.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
+    "env": "0.0.2",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
-    "morgan": "~1.9.1"
-  }
+    "morgan": "~1.9.1",
+    "mysql": "^2.17.1"
+  },
+  "main": "index.js",
+  "devDependencies": {
+    "dotenv": "^10.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EpitechIT2020/B-WEB-200-PAR-2-2-epytodo-sidi1.ba.git"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "mysql",
+    "dotenv",
+    "restapi"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EpitechIT2020/B-WEB-200-PAR-2-2-epytodo-sidi1.ba/issues"
+  },
+  "homepage": "https://github.com/EpitechIT2020/B-WEB-200-PAR-2-2-epytodo-sidi1.ba#readme",
+  "description": ""
 }

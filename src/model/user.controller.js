@@ -1,4 +1,4 @@
-const user = require("../../routes/users.js")
+const user = require("../../routes/user/users.js")
 
 exports.create = (req, res) => {
     if (!req.body) {
@@ -23,6 +23,17 @@ exports.create = (req, res) => {
       res.status(500).send({
         message:
           err.message || "Some error occurred while creating the user."
+      });
+    else res.send(data);
+  });
+};
+
+exports.findAll = (req, res) => {
+  user.getAll((err, data) => {
+    if (err)
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving customers."
       });
     else res.send(data);
   });

@@ -6,8 +6,8 @@ const user = function(user) {
   this.email = user.email,
   this.password = user.user_password,
   this.name = user.name,
-  this.firstname = user.firstname,
-  this.created_at = user.created_at
+  this.firstname = user.firstname
+ // this.created_at = user.created_at
 };
 
 user.create = (newCustomer, result) => {
@@ -30,7 +30,6 @@ user.findById = (customerId, result) => {
       result(err, null);
       return;
     }
-
     if (res.length) {
       console.log("found customer: ", res[0]);
       result(null, res[0]);

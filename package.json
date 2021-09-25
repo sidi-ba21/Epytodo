@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./src/index.js",
-    "dev": "nodemon ./src/index.js"
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
+    "dotenv": "^10.0.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "env": "0.0.2",
@@ -35,11 +36,11 @@
     "dotenv",
     "restapi"
   ],
-  "author": "",
+  "author": "Amyr & Sidi BA & Lucas",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/EpitechIT2020/B-WEB-200-PAR-2-2-epytodo-sidi1.ba/issues"
   },
   "homepage": "https://github.com/EpitechIT2020/B-WEB-200-PAR-2-2-epytodo-sidi1.ba#readme",
-  "description": ""
+  "description": "epytodo project Amyr & Sidi BA & Lucas"
 }

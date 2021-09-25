@@ -1,38 +1,52 @@
-var jwt = require('jsonwebtoken');
-const sql = require('../config/db');
-var dotenv = require('dotenv').config();
+const db = require('../config/db')
+const jwt = require('jsonwebtoken')
+const crypt = require('bcryptjs')
 
-exports.generateToken = function(email, id) {
-    const token = jwt.sign({ email: email, id: id }, process.env.SECRET, { expiresIn: '365d' });
-    return token;
+const check_login = module.exports.check_login = function (req, res, next) {
+    if (req.body.email == undefined || req.body.password == undefined)
+        db.error(res)
+    else next()
 }
 
-exports.authenticateToken = function(req, res, next) {
-    const authHeader = req.headers['authorization'];
-    const token = authHeader && authHeader.split(' ')[1];
-
-    if (token == null) {
-        return res.status(401).send({
-            msg: "No token, authorization denied"
-        });
-    }
-
-    jwt.verify(token, process.env.SECRET, (err, user) => {
-        if (err) {
-            return res.status(401).send({
-                msg: "Unauthorized"
-            });
+const check_token = module.exports.check_token = function (req, res, next) {
+    if (req.header('token') != undefined) {
+        var token = req.header('token')
+        try {
+            var jtok = jwt.verify(token, process.env.SECRET);
+        } 
+        catch(err) {
+            res.type('application/json')
+            res.send(JSON.stringify({msg: "Token is not valid"}, null, 2))
         }
-        req.body.user = user;
-        sql.query("SELECT * FROM user WHERE user.email = ?", user.email, function(err, result) {
-            if (err || result[0] == undefined) {
-                return res.status(401).send({
-                    msg: "Unauthorized"
-                });
-            } else {
-                req.body.user.id = result[0].id;
-                next();
-            }
-        })
-    })
+        if (jtok != undefined) next()
+    }
+    else {
+        res.type('application/json')
+        res.send(JSON.stringify({msg: "No token, authorization denied"}, null, 2))
+    }
+}
+
+const check_credentials = module.exports.check_credentials = function (req, res, next) {
+    try {
+        var sql = `SELECT * FROM user WHERE email="${req.body.email}"`
+    } catch (e) {
+        db.error(res);
+    }
+    db.connection.query(sql, function (err, quered) {
+        if (err) db.error(res);
+        if (quered.length > 0) {
+            var user = quered[0];
+            crypt.compare(req.body.password, user.password).then(function(result) {
+                if (result) next()
+                else {
+                    res.type('application/json')
+                    res.send(JSON.stringify({msg: "Invalid Credentials"}, null, 2))
+                }
+            })
+        }
+        else {
+            res.type('application/json')
+            res.send(JSON.stringify({msg: "Invalid Credentials"}, null, 2))
+        }
+    });
 }

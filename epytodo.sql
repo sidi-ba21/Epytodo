@@ -1,22 +1,22 @@
 CREATE DATABASE IF NOT EXISTS epytodo;
 USE epytodo;
 CREATE TABLE IF NOT EXISTS user(
-    id INT UNSIGNED NOT NULL AUTO_INCREMENT primary key,
-    email VARCHAR(50) NOT NULL UNIQUE,
-    user_password CHAR(50),
-    name VARCHAR(50) NOT NULL,
-    firstname VARCHAR(50) NOT NULL,
-    created_at TIMESTAMP
-);
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password CHAR(100) NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    firstname VARCHAR(100) NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+)ENGINE=INNODB;
 
 CREATE TABLE IF NOT EXISTS todo(
-    id INT NOT NULL AUTO_INCREMENT primary key,
-    title VARCHAR(50) NOT NULL,
-    description VARCHAR(50),
-    created_at TIMESTAMP,
-    due_time datetime NOT NULL,
-    firstname VARCHAR(50) NOT NULL,
-    status enum ('not started', 'todo', 'in progress', 'done') DEFAULT 'not started',
-    user_id INT UNSIGNED NOT NULL,
-    FOREIGN KEY(user_id) REFERENCES user(id)
-);
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(100) NOT NULL,
+    description TEXT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    due_time DATETIME NOT NULL,
+    status VARCHAR(20) DEFAULT 'not started',
+    user_id INT UNSIGNED,
+    CONSTRAINT todo_user FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE,
+    CHECK (status in ('not started','todo', 'in progress', 'done'))
+)ENGINE=INNODB
